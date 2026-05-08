@@ -1,4 +1,14 @@
-import { add } from "@/test/math.js";
-const a = 1;
-const b = 2;
-console.log("This is the final result: ", add(a, b));
+import express from "express"; //
+
+const app = express();
+const port = process.env.PORT || 8000;
+app.get("/", (req, res) => {
+  res.send("Hi");
+});
+
+app.get("/login", (req, res) => {
+  res.send("this is login page");
+});
+app.listen(port, () => {
+  console.log("The applicatio is running onr port:" + port);
+});
