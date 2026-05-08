@@ -1,0 +1,7 @@
+//first step 
+we want to authenticate and authorize when we click on mail we get new url and a token valid for only one user.
+once this used verify the token , this token is going to be expired.
+
+set up routes:
+    in index: create route
+        app.post 
