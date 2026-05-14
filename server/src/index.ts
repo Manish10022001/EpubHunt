@@ -1,5 +1,7 @@
+import "@/db/connect.js";
 import express from "express"; //
 import authRouter from "./routes/auth.js";
+import "dotenv/config";
 const port = process.env.PORT || 8000;
 
 const app = express();
