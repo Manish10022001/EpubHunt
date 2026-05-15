@@ -14,8 +14,7 @@ export const generateAuthLink: RequestHandler = async (req, res) => {
     5. Notify user to look inside the email to get the login link
   */
 
-  const randomToken = crypto.randomBytes(36).toString("hex"); //it creates random token
-  //2. t  o store
+  //2. t o store
   //2.2
   //we have email in validator,in req.body, so find user if in req.body
   const { email } = req.body;
@@ -27,6 +26,10 @@ export const generateAuthLink: RequestHandler = async (req, res) => {
     user = await userModel.create({ email });
   }
 
+  const userId = user._id;
+  //3. if we already have token for this user, it will remove that first and add new one
+  await verificationTokenModel.findOneAndDelete({ userId });
+  const randomToken = crypto.randomBytes(36).toString("hex"); //it creates random token
   //2.1
   await verificationTokenModel.create({
     userId: user._id,
