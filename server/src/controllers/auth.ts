@@ -3,6 +3,7 @@ import crypto from "crypto";
 import verificationTokenModel from "@/models/verificationToken.js";
 import userModel from "@/models/user.js";
 import nodemailer from "nodemailer";
+import mail from "@/utils/mail.js";
 
 export const generateAuthLink: RequestHandler = async (req, res) => {
   //Generate authentication link
@@ -38,34 +39,15 @@ export const generateAuthLink: RequestHandler = async (req, res) => {
     token: randomToken,
   });
 
-  //4.1 -> created transporter
-  const transport = nodemailer.createTransport({
-    // host: "smtp-relay.brevo.com",
-    // port: 587,
-    // secure: false,
-    // auth: {
-    //   user: "ab9280001@smtp-brevo.com",
-    //   pass: "apfm3H1kM5w0Ehgx",
-    // },
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-  //2.3 create link
+  //4.3 create link
   const link = `http://localhost:8000/verify?token=${randomToken}&userId=${userId}`;
-  //2.2 compose email objecgtjj
-  await transport.sendMail({
+
+  //call mail object
+  await mail.sendVerificationMail({
+    link,
     to: user.email,
-    from: process.env.EMAIL_USER,
-    subject: "Auth Verification",
-    html: `
-      <div>
-        <p>Please click on <a href="${link}"> this link</a> to verify your account.</p>
-      </div>
-    `,
   });
+  
   console.log(req.body);
   res.json({ message: "Please check your mail" });
 };

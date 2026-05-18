@@ -1,0 +1,13 @@
+//AUthentication and Authorization
+
+4. Send the link to users email address:
+-authenticate to email provider: mailtrap
+-to send email have to use nodemailer(npm install nodemailer) and also it types npm i install @types/nodemailer -D (to store in dev environment)
+- grab username and password from mailtrap and paste in controller,
+ used gmail smtp as mailtrap and brevo did not worked
+
+4.1-Refactor -> we are suing link and localhost and to send uisn gmalsmtp,  in futur this might change so at that point of time 
+we have to go specific place and change, 
+so we use same thing but create object where we have sendVerificationMail function whihc takes same thing, and we use this and whern we want to change anything we can just chnage this
+so create, create new folder utils -> mail.this
+
